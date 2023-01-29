@@ -16,15 +16,31 @@ class BST{
         if(root === undefined){
             root = new this.NodeClass(key, ...args);
             return root
-        }else if(root.key >= key){
+        }else if(root.key > key){
             root.left = this._add(root.left, key, ...args);
         }else if(root.key < key){
             root.right = this._add(root.right, key, ...args);
         }
         return root
     }
-    add(value, ...args){
-        this.root = this._add(this.root, value, ...args);
+    add(key, ...args){
+        this.root = this._add(this.root, key, ...args);
+    }
+    _find(key, root){
+        if (root === undefined)
+            return root
+        else{
+            if(root.key === key){
+                return root
+            }
+            else if(root.key > key)
+                root = this._find(key ,root.left)
+            else if(root.key < key)
+                root = this._find(key ,root.right)
+        return root
+    }}
+    find(key){
+        return this._find(key, this.root);
     }
     #printPostorder(root, index) {
         if (root === undefined)
@@ -88,4 +104,4 @@ test.add(26, 'alireza');
 test.add(24, 'ahmad');
 test.add(10, 'donya');
 test.add(4, 'sohrab');
-console.log(test.preorder("value"));
+console.log(test.find(29, "key")?.value);
